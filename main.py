@@ -22,7 +22,7 @@ def main():
 
         def is_correct(self, answer):
             """Возвращает True, если ответ пользователя совпадает с верным
-            ответом иначе False.
+            ответом иначе False. Устанавливает количество баллов за вопрос
             """
 
             if answer == self.answer:
@@ -45,7 +45,6 @@ def main():
             """Возвращает: Ответ неверный, верный ответ __  """
             return f"Ответ неверный, верный ответ - {self.answer}\n"
 
-
     def forms_questions():
         """формирование списка вопросов из файла question.json, каждый элемент списка
         экземпляр класса Questions# """
@@ -56,7 +55,6 @@ def main():
                 questions.append(Questions(each_question["q"], each_question["d"], each_question["a"]))
 
         return random.shuffle(questions)  # перемешиваем список вопросов
-
 
     def counts_results(sp):
         """ Подводит итог игры. Сколько верных ответов из общего количества,
@@ -69,7 +67,6 @@ def main():
         print("Вот и все!")
         print(f'Отвечено {correct_answer} вопросов из {len(sp)}')
         print(f'Набрано баллов: {points}')
-
 
     print("Игра начинается!")
     print('-----------------')
@@ -89,5 +86,7 @@ def main():
             print(questions[a].build_negative_feedback())
 
     counts_results(questions)
+
+
 if __name__ == '__main__':
     main()

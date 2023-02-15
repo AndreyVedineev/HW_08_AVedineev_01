@@ -34,15 +34,15 @@ class Questions:
         Вопрос: What do people often call American flag?
         Сложность 4/5
         """
-        return f"Вопрос: {self.question}\nСложность: {self.hard_question}/{len(questions)}"
+        return f"Вопрос: \n{self.question}\nСложность: {self.hard_question}/{len(questions)}"
 
     def build_positive_feedback(self):
         """Возвращает: Ответ верный, получено __ баллов """
-        return f"Ответ верный, получено {self.points} баллов"
+        return f"Ответ верный, получено {self.points} баллов\n"
 
     def build_negative_feedback(self):
         """Возвращает: Ответ неверный, верный ответ __  """
-        return f"Ответ неверный, верный ответ - {self.answer}"
+        return f"Ответ неверный, верный ответ - {self.answer}\n"
 
 
 def counts_results(sp):
@@ -59,6 +59,7 @@ def counts_results(sp):
 
 
 print("Игра начинается!")
+print('-----------------')
 # формирование списка вопросов из файла question.json, каждый элемент списка экземпляр класса Questions
 questions = []
 with open('question.json', 'r', encoding="utf-8") as file:

@@ -14,12 +14,6 @@ def main():
             self.ask = ask  # – ответ пользователя (по умолчанию None)
             self.points = points  # – баллы за вопрос (вычисляется в момент инициализации)
 
-        # def get_points(self):
-        #     """Возвращает int, количество баллов. Баллы зависят от сложности:
-        #     за 1 дается 10 баллов, за 5 дается 50 баллов.
-        #     """
-        #     return int(self.hard_question * 10)
-
         def is_correct(self, answer):
             """Возвращает True, если ответ пользователя совпадает с верным
             ответом иначе False. Устанавливает количество баллов за вопрос
@@ -46,13 +40,13 @@ def main():
             return f"Ответ неверный, верный ответ - {self.answer}\n"
 
     def forms_questions():
-        """формирование списка вопросов из файла question.json, каждый элемент списка
-        экземпляр класса Questions# """
+        """Формирование списка вопросов из файла question.json, каждый элемент списка
+        экземпляр класса Questions """
 
         with open('question.json', 'r', encoding="utf-8") as file:
             list_of_questions = json.load(file)
             for each_question in list_of_questions:
-                questions.append(Questions(each_question["q"], each_question["d"], each_question["a"]))
+                questions.append(Questions(each_question["q"], each_question["d"], each_question["attempt"]))
 
         return random.shuffle(questions)  # перемешиваем список вопросов
 
@@ -69,21 +63,21 @@ def main():
         print(f'Набрано баллов: {points}')
 
     print("Игра начинается!")
-    print('-----------------')
+    print('**-------------**')
     questions = []  # заготовка вопросов
     points = 0  # сумма балов за игру
     forms_questions()
-    # random.shuffle(questions)
-    for a in range(len(questions)):
-        print(questions[a].build_question())
-        user_answer = input()
-        questions[a].is_correct(user_answer)  # при правильном ответе переписываем параметр is_correct -  True
 
-        if questions[a].is_question:
-            print(questions[a].build_positive_feedback())
-            points += questions[a].points  # собираем баллы
+    for attempt in range(len(questions)):
+        print(questions[attempt].build_question())
+        user_answer = input()
+        questions[attempt].is_correct(user_answer)  # при правильном ответе переписываем параметр is_correct -  True
+
+        if questions[attempt].is_question:
+            print(questions[attempt].build_positive_feedback())
+            points += questions[attempt].points  # собираем баллы
         else:
-            print(questions[a].build_negative_feedback())
+            print(questions[attempt].build_negative_feedback())
 
     counts_results(questions)
 

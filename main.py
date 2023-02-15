@@ -45,28 +45,39 @@ class Questions:
         return f"Ответ неверный, верный ответ - {self.answer}"
 
 
+def counts_results(sp):
+    """ Подводит итог игры. Сколько верных ответов из общего количества,
+    количество набранных баллов"""
+    correct_answer = 0
+    for s in sp:
+        if s.is_question:
+            correct_answer += 1
+
+    print("Вот и все!")
+    print(f'Отвечено {correct_answer} вопросов из {len(sp)}')
+    print(f'Набрано баллов: {points}')
+
 
 print("Игра начинается!")
-
-# формирование списка вопросов из файла question.json
+# формирование списка вопросов из файла question.json, каждый элемент списка экземпляр класса Questions
 questions = []
 with open('question.json', 'r', encoding="utf-8") as file:
     list_of_questions = json.load(file)
-    for one_question in list_of_questions:
-        questions.append(Questions(one_question["q"], one_question["d"], one_question["a"]))
+    for each_question in list_of_questions:
+        questions.append(Questions(each_question["q"], each_question["d"], each_question["a"]))
 
 points = 0  # сумма балов за игру
-
 random.shuffle(questions)  # перемешиваем список вопросов
 
 for a in range(len(questions)):
     print(questions[a].build_question())
     user_answer = input()
-    questions[a].is_correct(user_answer) # при правильном ответе переписываем параметр is_correct -  True
+    questions[a].is_correct(user_answer)  # при правильном ответе переписываем параметр is_correct -  True
 
     if questions[a].is_question:
         print(questions[a].build_positive_feedback())
-        points += questions[a].points # собираем баллы
+        points += questions[a].points  # собираем баллы
     else:
         print(questions[a].build_negative_feedback())
 
+counts_results(questions)

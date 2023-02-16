@@ -39,16 +39,16 @@ def main():
             """Возвращает: Ответ неверный, верный ответ __  """
             return f"Ответ неверный, верный ответ - {self.answer}\n"
 
-    def forms_questions():
+    def forms_questions(file):
         """Формирование списка вопросов из файла question.json, каждый элемент списка
         экземпляр класса Questions """
-
-        with open('question.json', 'r', encoding="utf-8") as file:
+        questions = []  # заготовка вопросов
+        with open(file, 'r', encoding="utf-8") as file:
             list_of_questions = json.load(file)
             for each_question in list_of_questions:
                 questions.append(Questions(each_question["q"], each_question["d"], each_question["a"]))
-
-        return random.shuffle(questions)  # перемешиваем список вопросов
+        random.shuffle(questions)  # перемешиваем список вопросов
+        return questions
 
     def counts_results(sp):
         """ Подводит итог игры. Сколько верных ответов из общего количества,
@@ -65,10 +65,9 @@ def main():
     print("Игра начинается!")
     print('**-------------**')
 
-    questions = []  # заготовка вопросов
     points = 0  # сумма балов за игру
-
-    forms_questions()
+    # questions = []  # заготовка вопросов
+    questions = forms_questions('question.json')
 
     for attempt in range(len(questions)):
         print(questions[attempt].build_question())

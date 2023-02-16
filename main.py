@@ -4,7 +4,9 @@ import random
 
 def main():
     class Questions:
-
+        """
+        Ответы на вопросы.
+        """
         def __init__(self, question, hard_question, answer, is_question=False, ask=None, points=0):
             self.question = question  # – текст вопроса
             self.hard_question = hard_question  # – сложность вопроса
@@ -66,7 +68,7 @@ def main():
     print('**-------------**')
 
     points = 0  # сумма балов за игру
-    # questions = []  # заготовка вопросов
+
     questions = forms_questions('question.json')
 
     for attempt in range(len(questions)):

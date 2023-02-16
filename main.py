@@ -46,7 +46,7 @@ def main():
         with open('question.json', 'r', encoding="utf-8") as file:
             list_of_questions = json.load(file)
             for each_question in list_of_questions:
-                questions.append(Questions(each_question["q"], each_question["d"], each_question["attempt"]))
+                questions.append(Questions(each_question["q"], each_question["d"], each_question["a"]))
 
         return random.shuffle(questions)  # перемешиваем список вопросов
 
@@ -64,8 +64,10 @@ def main():
 
     print("Игра начинается!")
     print('**-------------**')
+
     questions = []  # заготовка вопросов
     points = 0  # сумма балов за игру
+
     forms_questions()
 
     for attempt in range(len(questions)):
